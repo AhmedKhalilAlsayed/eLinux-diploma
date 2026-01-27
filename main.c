@@ -9,7 +9,25 @@
 
 // task: to cp source file to dest (arg1, arg2)
 
-int main(int argc, char *argv[])
+int main()
+{
+
+	char data[100];
+	int fd = open("fi.txt", O_WRONLY | O_CREAT | O_TRUNC);
+
+	for (int loop = 0; loop < 10; loop++)
+	{
+		for (size_t i = 0; i < sizeof(data); i++)
+		{
+			data[i] = 'A' + i % 26;
+		}
+		write(fd, data, sizeof(data));
+	}
+
+	return 0;
+}
+
+int main0(int argc, char *argv[])
 {
 
 	// should argc = 3, 1 cmd, 2 source, 3 dest
