@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
 	for (size_t i = 1; i < argc; i++)
 	{
 
+		// atomically
 		int fd = open(argv[i], O_RDONLY | O_CREAT | O_EXCL, 0644);
 
 		if (fd == -1)
