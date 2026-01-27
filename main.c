@@ -1,11 +1,11 @@
-#include <fcntl.h>
-#include <unistd.h>
-#include <error.h>
-#include <err.h>
-#include <string.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <string.h>
 #include <errno.h>
+#include <libgen.h>
 
 // todo:done safe creating files
 // todo: safe creating dir
@@ -17,28 +17,13 @@
 int main(int argc, char *argv[])
 {
 
-	if (argc == 1)
+	int d = mkdir("dirr", 0755);
+
+	if (d == -1)
 	{
-		printf("Enter your filenames!\n");
-		exit(2);
-	}
+		perror("");
 
-	for (size_t i = 1; i < argc; i++)
-	{
-
-		// atomically
-		int fd = open(argv[i], O_RDONLY | O_CREAT | O_EXCL, 0644);
-
-		if (fd == -1)
-		{
-			printf(FAIL " %s: %s\n", argv[i], strerror(errno));
-		}
-		else
-		{
-			printf(PASS " %s: created!\n", argv[i]);
-		}
-
-		close(fd);
+		exit(1);
 	}
 
 	return 0;
