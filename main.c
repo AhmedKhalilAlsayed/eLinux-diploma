@@ -19,6 +19,11 @@
 
 size_t pathnameToNames(const char *pathname, char *names[MAX_REC_DIRS])
 {
+	if (pathname == NULL || names == NULL)
+	{
+		perror("NULL ptrs!\n");
+		return -1;
+	}
 	char cpathname[BUF];
 	strncpy(cpathname, pathname, BUF);
 
@@ -37,16 +42,16 @@ size_t pathnameToNames(const char *pathname, char *names[MAX_REC_DIRS])
 int main(int argc, char *argv[])
 {
 
-	char *path = "asd.a/asd";
+	char *path = "asd.a/";
 	char *dirs[MAX_REC_DIRS];
 
-	size_t len = pathnameToNames(path, dirs);
-	printf("len: %ld\n", len);
+	// size_t len = pathnameToNames(path, dirs);
+	// printf("len: %ld\n", len);
 
-	for (size_t i = 0; i < len; i++)
-	{
-		printf("%s\n", dirs[i]);
-	}
+	// for (size_t i = 0; i < len; i++)
+	// {
+	// 	printf("%s\n", dirs[i]);
+	// }
 
 	return 0;
 }
