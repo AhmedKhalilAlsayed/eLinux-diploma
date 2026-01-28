@@ -14,17 +14,16 @@
 #define FAIL "✗"
 #define PASS "✓"
 
+#define BUF 1024
 int main(int argc, char *argv[])
 {
+	char *path = "a/b/ c";
+	char copypath[BUF];
+	strncpy(copypath, path, BUF);
 
-	int d = mkdir("dirr", 0755);
-
-	if (d == -1)
-	{
-		perror("");
-
-		exit(1);
-	}
-
+	char *s = strchr(copypath, '/');
+	// char *s = strrchr(copypath, '/');
+	printf("%ld\n", s - copypath );
+	printf("%s\n", s);
 	return 0;
 }
