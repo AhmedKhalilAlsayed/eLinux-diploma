@@ -1,2 +1,2 @@
 // this is the main branch
-// and other branches about my learning
+// and other branches about my learning-topics/tasks/projects
