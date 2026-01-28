@@ -15,15 +15,38 @@
 #define PASS "✓"
 
 #define BUF 1024
+#define MAX_REC_DIRS 10
+
+size_t pathnameToNames(const char *pathname, char *names[MAX_REC_DIRS])
+{
+	char cpathname[BUF];
+	strncpy(cpathname, pathname, BUF);
+
+	size_t nameIdx = 0;
+	names[nameIdx] = strtok(cpathname, "/");
+
+	while (names[nameIdx] != NULL)
+	{
+		nameIdx++;
+		names[nameIdx] = strtok(NULL, "/");
+	}
+
+	return nameIdx; // length
+}
+
 int main(int argc, char *argv[])
 {
-	char *path = "a/b/ c";
-	char copypath[BUF];
-	strncpy(copypath, path, BUF);
 
-	char *s = strchr(copypath, '/');
-	// char *s = strrchr(copypath, '/');
-	printf("%ld\n", s - copypath );
-	printf("%s\n", s);
+	char *path = "asd.a/asd";
+	char *dirs[MAX_REC_DIRS];
+
+	size_t len = pathnameToNames(path, dirs);
+	printf("len: %ld\n", len);
+
+	for (size_t i = 0; i < len; i++)
+	{
+		printf("%s\n", dirs[i]);
+	}
+
 	return 0;
 }
