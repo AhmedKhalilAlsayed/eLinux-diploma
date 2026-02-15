@@ -1,38 +1,26 @@
 #! /bin/env bash
 
-# password checker
+# backup.sh
 
-passwd=""
+set -e
 
-read -p "Enter password: " passwd
+src_dir="$1"
+backup_dir="backups"
+timestamp=$(date +%Y%m%d_%H%M%S)
+backup_file="backup_${src_dir}_${timestamp}.tar.gz"
 
-if [[ -z passwd ]]; then
-echo "fail!"
+if [[ ! -d "$src_dir" ]]; then
+echo "Error: ${src_dir} dir not exists!"
 exit 1
 fi
 
-# Checks:
-checks=0
-# - Length >= 8 characters
-[[ "$passwd" =~ .{8,} ]] && ((checks++))
+# make sure the backup dir
+new ${backup_dir}
 
-# - Contains at least one uppercase letter
-[[ "$passwd" =~ [A-Z] ]] && ((checks++))
+# show loading msg
+echo "backup ..."
 
-# - Contains at least one lowercase letter
-[[ "$passwd" =~ [a-z] ]] && ((checks++))
-
-# - Contains at least one number
-[[ "$passwd" =~ [0-9] ]] && ((checks++))
-
-# - Contains at least one special character (@, #, $, %, etc.)
-[[ "$passwd" =~ [\!\@\#\$\%\^\&\*\(\)\_\+] ]] && ((checks++))
+tar -czf "${backup_dir}/${backup_file}" "${src_dir}"
 
 
-if [[ checks -eq 5 ]]; then
-echo "Strong pass"
-elif [[ checks -ge 3 ]]; then
-echo "Medium pass"
-else
-echo "Weak pass!!!!!"
-fi
+set +e
