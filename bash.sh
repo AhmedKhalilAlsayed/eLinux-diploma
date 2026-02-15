@@ -1,21 +1,45 @@
 #! /bin/env bash
 
-# simple menu sys
-echo "1. date"
-echo "2. List"
-echo "3. exit"
+read -p "Enter file path: " file
 
-# -n 1: number of char
-read -n 1 -p "Enter: " ch
-echo
+if [[ -e "$file" ]]; then
+echo "File exists"
+else
+echo "File not exists"
+exit 1
+fi
 
-case $ch in
-1) date
-;;
-2)ls
-;;
-3)exit
-;;
-*) echo "Wring choice!"
-;;
-esac
+if [[ -f "$file" ]]; then
+echo "Type: Regular file"
+elif [[ -d "$file" ]];then
+echo "Type: Dir"
+elif [[ -L "$file" ]];then
+echo "Type: Link"
+else
+echo "Type: Unknown"
+fi
+
+# my way - works
+# msg="Permissions: "
+# if [[ -r "$file" ]];then
+# msg="${msg}readable, "
+# fi
+# if [[ -w "$file" ]];then
+# msg="${msg}writable, "
+# fi
+# if [[ -x "$file" ]];then
+# msg="${msg}exe"
+# fi
+# echo "$msg"
+
+# جامدة الصراحة
+perm=""
+[[ -r "$file" ]] && perm+="readable, "
+[[ -w "$file" ]] && perm+="writeable, "
+[[ -x "$file" ]] && perm+="exe"
+
+if [[ -n "$perm" ]];then
+echo "Per: $perm"
+else
+echo "Per: Nothing!"
+fi
