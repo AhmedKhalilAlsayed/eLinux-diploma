@@ -1,42 +1,28 @@
 #! /bin/env bash
 
-# check arguments
+read -p "Enter your age: " age
 
-if [[ -z "$1" ]]; then 
-echo "Usage: $0 <filename>";
-exit 1;
-fi
-
-# check file type
-file="$1"
-
-if [[ ! -e "$file" ]]; then
-echo "file $file: does not exists!"
+# check the age is a number!
+# you can do it with regex
+set -x
+if [[ ! "$age" =~ ^[0-9]+$ ]]; then
+echo "Is not a positve number"
 exit 1
 fi 
 
-if [[ -f "$file" ]]; then
+# check range 6 to 80
 
-echo "Is a file"
+if [[ $age -lt 6 || $age -gt 80 ]];then
+echo "Must be in range 6 to 80 years!"
+exit 1
+fi
 
-elif [[ -d "$file" ]]; then
-
-echo "Is a dir"
-
-elif [[ -L "$file" ]]; then
-
-echo "Is a Link"
-
+# categorize
+if [[ $age -lt 7 ]];then
+echo "Child"
+elif [[ $age -lt 15 ]];then
+echo "Will be a man"
 else
-echo "Unknown!"
+echo "مُكلف"
 fi
-
-# check extension
-
-if [[ "$file" =~ \.(txt|bash|sh)$ ]];then
-echo "text file"
-fi
-
-if [[ "$file" =~ \.elf$ ]];then
-echo "bash file"
-fi
+set +x
