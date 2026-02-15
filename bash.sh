@@ -1,20 +1,42 @@
 #! /bin/env bash
 
-# take 2 arg, $1 temp in C, $2 F/K
+# check arguments
 
-cToF(){
-	 echo "scale=2; $1 * 9/5 + 32" | bc;
- }
+if [[ -z "$1" ]]; then 
+echo "Usage: $0 <filename>";
+exit 1;
+fi
 
-cToK(){
-	echo "scale=2; $1 + 273.15" | bc;
-}
+# check file type
+file="$1"
 
-temp=$1
-unit=$2
+if [[ ! -e "$file" ]]; then
+echo "file $file: does not exists!"
+exit 1
+fi 
 
-case $unit in 
-F) echo "$(cToF $1)";;
-K) echo "$(cToK $1)";;
-*) echo "Fail!"; exit 1;;
-esac
+if [[ -f "$file" ]]; then
+
+echo "Is a file"
+
+elif [[ -d "$file" ]]; then
+
+echo "Is a dir"
+
+elif [[ -L "$file" ]]; then
+
+echo "Is a Link"
+
+else
+echo "Unknown!"
+fi
+
+# check extension
+
+if [[ "$file" =~ \.(txt|bash|sh)$ ]];then
+echo "text file"
+fi
+
+if [[ "$file" =~ \.elf$ ]];then
+echo "bash file"
+fi
