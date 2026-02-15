@@ -1,31 +1,25 @@
 #! /bin/env bash
 
-# guess the number
+# password checker
 
-secret=$((RANDOM %20 + 1))
-count=1
+passwd=""
 
-echo "I'm thinking of a nubmer between 1 and 20"
-echo "Can you guess it?"
+read -p "Enter password: " passwd
+# echo
 
-while true; do
-
-read -p "Your guess: " val
-
-if [[ ! "$val" =~ ^[0-9]+$ ]];then
-	echo "Usage: enter a number between 1 and 20"
-	continue ###########
+if [[ -z passwd ]]; then
+echo "fail!"
+exit 1
 fi
 
-if [[ $secret -eq val ]];then
-	echo "Correct! You got it in ${count} attempts"
-	break #############
-	elif [[ val -lt $secret ]];then
-	echo "Too low"
-	((count++))
-	elif [[ val -gt $secret ]];then
-	echo "Too High"
-	((count++))
-fi
+# Checks:
+checks=0
+# - Length >= 8 characters
+[[ passwd =~ .{8,} ]] && ((checks++))
 
-done
+# - Contains at least one uppercase letter
+# - Contains at least one lowercase letter
+# - Contains at least one number
+# - Contains at least one special character (@, #, $, %, etc.)
+
+echo "$checks"
