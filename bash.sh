@@ -1,12 +1,24 @@
 #! /bin/env bash
 
-set -x
+# calc takes 3 args 5 + 3
+# out 5 + 3 = 8
 
-a=5
-b=50
-r=0
+num1=$1
+op=$2
+num2=$3
+result=0
 
-((r=a+b))
-echo  $r
+case $op in
++) ((result = num1 + num2))
+;;
+-) ((result = num1 - num2))
+;;
+\*) ((result = num1 * num2))
+;;
+/) ((result = num1 / num2))
+;;
+*) echo "Fail!"; exit 1;
+;;
+esac
 
-set +x
+echo "${num1} ${op} ${num2} = ${result}"
