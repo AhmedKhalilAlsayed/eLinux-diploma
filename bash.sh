@@ -1,24 +1,16 @@
 #! /bin/env bash
 
-# calc takes 3 args 5 + 3
-# out 5 + 3 = 8
+a=0
+b=1
+sum=0
+n=5
 
-num1=$1
-op=$2
-num2=$3
-result=0
+for((i=0;i<n;i++)); do
 
-case $op in
-+) ((result = num1 + num2))
-;;
--) ((result = num1 - num2))
-;;
-\*) ((result = num1 * num2))
-;;
-/) ((result = num1 / num2))
-;;
-*) echo "Fail!"; exit 1;
-;;
-esac
+echo ${a}
 
-echo "${num1} ${op} ${num2} = ${result}"
+((sum=a+b))
+((a=b)) # a=$b
+((b=sum)) # b=sum XXXXXXXX wrong!
+
+done
