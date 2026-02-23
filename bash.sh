@@ -2,12 +2,11 @@
 
 set +x
 
-# args take src files, and des to copy
 
-# validate args
+# validate args len
 
 if [[ $# -lt 2 ]];then
-    echo "Usage: ./script <src_files> <des_dir>"
+    echo "Usage: ./script <src_files*> <des_dir>"
     exit 1
 fi
 
@@ -31,12 +30,15 @@ fi
 args=()
 arg_len=$#
 
+
+# add all args files srcs + des
 for fd in "$@";do
-    # add all args files srcs + des
     args+=("$fd")
 done
 
-if [[ ! -d "${args[$((arg_len-1))]}" ]];then
+des_dir="${args[$((arg_len-1))]}"
+
+if [[ ! -d "$des_dir" ]];then
     echo "Should the last arg is a dir!"
     exit 1
 fi
@@ -47,13 +49,13 @@ fi
 
 for (( i=0;i<"$arg_len"-1;i++ ));do
     
-    # mv "${args[$i]}" "${args[$((arg_len-1))]}"
+    src_file="${args[$i]}"
     
-    if ! mv "${args[$i]}" "${args[$((arg_len-1))]}"; then
-        # if [[ $? != 0 ]];then
-        echo "${args[$i]}: faild!"
-		else
-		echo "${args[$i]}: done!"
+    if ! mv  "$src_file" "$des_dir"; then
+        
+        echo "${src_file}: faild!"
+    else
+        echo "${src_file}: done!"
     fi
 done
 
