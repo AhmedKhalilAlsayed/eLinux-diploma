@@ -1,28 +1,36 @@
 #! /bin/env bash
 
-# log file monitor
+# user management automation
 
 set +x
 
-log_file="${1:?"Where the log file!"}"
+# if [[ "$EUID" -ne 0 ]];then
+#     echo "Run as a root!" >&2
+#     exit 1
+# fi
 
-keywords=("Error" "log" "debbug" "fix")
 
-[[ ! -f "$log_file" ]] && echo "Wrong file!" && exit 1;
+# is_strong_passwd(){
+#     if [[ ! "$1" =~  [0-9]+.*[a-z]+.*[A-Z]+.* ]];then
+#         echo "Passwd is weak!" >&2
+#         return 1
+#     else
+#         return 0
+#     fi
+# }
 
-tail -Fn0 "$log_file" | while read -r line;do
-    for kw in "${keywords[@]}";do
-        if echo "$line" | grep -iw "$kw" &> /dev/null;then
-            echo "$line"
-        fi
-        # can make a switch case
-        # and make a special action like alarms, noti ...
-        
-    done
+create_user(){
+    # take: user name
+    # take: user passwd
+    # show success
+    user_name=""
+    passwd=""
+    read -r -p "Enter your uname: " user_name
+    read -r -p -s "Enter your passwd: " passwd
     
     
-    
-done
+}
 
+is_strong_passwd "$1"
 
 set +x
