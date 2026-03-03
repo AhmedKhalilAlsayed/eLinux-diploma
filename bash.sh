@@ -2,16 +2,10 @@
 
 set +x
 
-str="Hello Hello World!"
+: "${1:?"add your input file!"}"
 
-echo "0 ${str}"
-echo "0 ${str^^}"
-s="${str^^}"
-echo "0 ${s,}"
-echo "1 ${str//Hello/Hi}"
-echo "2 ${str//Hel*o/Hi }"
-echo "3 ${str/%World/Hi}"
-echo "4 ${str/%World!/Hi}"
-echo "5 ${str/#Hello/Hi}"
+while read line;do
+    echo "$line"
+done < "$1"
 
 set +x
