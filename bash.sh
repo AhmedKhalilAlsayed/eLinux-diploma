@@ -2,11 +2,8 @@
 
 set +x
 
-str="Ahmed"
+str="Hello Hello World!"
 
-echo "${str:1}"
-echo "${str: -2}" # space
-echo "${str:2:6}"
-echo "${str::7}"
+echo "${str}"
 
 set +x
