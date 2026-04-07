@@ -23,4 +23,5 @@ generate_passwd(){
 PASS=$(generate_passwd "$1")
 echo "Generated passwd: $PASS"
 
+
 set +e
