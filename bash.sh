@@ -11,7 +11,7 @@ set -e
 
 name="Ahmed Khalil"
 
-cat << EOF
+cat << EOF >> heredocfile.txt
 hello I'm $name
 And this is a heredoc style
 EOF
