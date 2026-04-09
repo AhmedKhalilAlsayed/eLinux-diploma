@@ -7,13 +7,45 @@ set -e
 
 #! private
 #! public
+help(){
+cat << EOF
+This simple script just have
+	-v, --version
+	-n, --name Enter your name
+EOF
+}
+
 #! main
 
-name="Ahmed Khalil"
+if ! options=$(getopt -o vn: --long version,name: -n "$0" -- "$@");then
+    echo
+    help
+    exit
+fi
 
-cat << EOF >> heredocfile.txt
-hello I'm $name
-And this is a heredoc style
-EOF
+# to be safe with spaces
+eval set -- "$options"
+
+while true;do
+    case "$1" in
+        -v|--version)
+            echo "v 0"
+            shift
+        ;;
+        -n|--name)
+            echo "Welcome $2"
+            shift 2
+        ;;
+        --)
+            shift
+            break
+        ;;
+        *)
+            echo "Wrong option!"
+            break
+        ;;
+        
+    esac
+done
 
 set +e
