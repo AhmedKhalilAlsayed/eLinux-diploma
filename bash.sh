@@ -44,7 +44,6 @@ while true;do
             echo "Wrong option!"
             break
         ;;
-        
     esac
 done
 
