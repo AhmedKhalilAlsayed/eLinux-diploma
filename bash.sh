@@ -9,9 +9,9 @@ set -e
 #! public
 help(){
 cat << EOF
-This simple script just have
+Usage:
 	-v, --version
-	-n, --name Enter your name
+	-n, --name <Enter your name>
 EOF
 }
 
@@ -41,7 +41,7 @@ while true;do
             break
         ;;
         *)
-            echo "Wrong option!"
+            echo "No option!"
             break
         ;;
     esac
